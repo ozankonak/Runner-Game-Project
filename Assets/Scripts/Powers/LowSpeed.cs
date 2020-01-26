@@ -9,29 +9,9 @@ public class LowSpeed : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            Time.timeScale = 0.5f;
-
+            PowerManager.instance.LowSpeed();
             Destroy(gameObject);
-
-            Invoke("SetSpeed", 2f);
         }
     }
-
-    void SetSpeed()
-    {
-        Time.timeScale = 1f;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

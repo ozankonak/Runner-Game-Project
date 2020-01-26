@@ -5,20 +5,13 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    private int coins = 0;
-
-    private void Start()
-    {
-        UIManager.instance.coinText.text = coins.ToString();
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
             AudioManager.instance.PlayCoinSound();
-            UIManager.instance.coinText.text = coins.ToString();
-            coins++;
+            ScoreManager.instance.Coins++;
+            UIManager.instance.coinText.text = ScoreManager.instance.Coins.ToString();
             Destroy(gameObject);
         }
     }

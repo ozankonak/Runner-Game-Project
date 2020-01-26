@@ -4,8 +4,7 @@
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
-
-    private AudioSource source;
+    public AudioSource Source { get; set; }
 
     [SerializeField] private AudioClip coinClip = null;
     [SerializeField] private AudioClip jumpClip = null;
@@ -13,22 +12,22 @@ public class AudioManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        source = GetComponent<AudioSource>();
+        Source = GetComponent<AudioSource>();
     }
 
     public void PlayJumpSound()
     {
-        source.PlayOneShot(jumpClip);
+        Source.PlayOneShot(jumpClip);
     }
 
     public void PlaySlideSound()
     {
-        source.PlayOneShot(slideClip);
+        Source.PlayOneShot(slideClip);
     }
 
     public void PlayCoinSound()
     {
-        source.PlayOneShot(coinClip);
+        Source.PlayOneShot(coinClip);
     }
 
 }

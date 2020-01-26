@@ -199,7 +199,7 @@ public class TileManager : MonoBehaviour
             go = Instantiate(CoinPlatforms[Random.Range(0, CoinPlatforms.Length)]);
         //%10 ihtimalle güç veren platform
         else
-            go = Instantiate(PowerPlatforms[Random.Range(0, CoinPlatforms.Length)]);
+            go = Instantiate(PowerPlatforms[Random.Range(0, PowerPlatforms.Length)]);
 
         CheckDirection(go);
     }
