@@ -58,7 +58,7 @@ public class PlayerPosition : MonoBehaviour
         if (other.gameObject.tag == "Destroy")
         {
             Destroy(other.gameObject.transform.parent.gameObject, 2f);
-            TileManager.instance.GetPlaneNumber--;
+            TileManager.instance.PlaneNumber--;
         }
     }
 

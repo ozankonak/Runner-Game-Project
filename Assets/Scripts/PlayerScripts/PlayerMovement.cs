@@ -51,58 +51,56 @@ public class PlayerMovement : MonoBehaviour
     {
         if (direction == Direction.Forward)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-            charController.Move(Vector3.forward * speed * Time.deltaTime);
-            if (playerPos.playerPosition == Position.Middle) 
-                transform.position = new Vector3(playerPos.MiddlePoint.x, transform.position.y, transform.position.z); 
-            else if (playerPos.playerPosition == Position.Left) 
-                transform.position = new Vector3(playerPos.LeftPoint.x, transform.position.y, transform.position.z); 
-            else if (playerPos.playerPosition == Position.Right)
-                transform.position = new Vector3(playerPos.RightPoint.x, transform.position.y, transform.position.z);
-        
+            ChangeRotation(0,Vector3.forward);
+
+            ChangePosition(playerPos.MiddlePoint.x,transform.position.z,
+                playerPos.LeftPoint.x,transform.position.z,playerPos.RightPoint.x,transform.position.z);
         }
 
         else if (direction == Direction.Right)
         {
-            transform.rotation = Quaternion.Euler(0, 90, 0);
-            charController.Move(Vector3.right * speed * Time.deltaTime);
-            if (playerPos.playerPosition == Position.Middle) 
-                transform.position = new Vector3(transform.position.x, transform.position.y, playerPos.MiddlePoint.z); 
-            else if (playerPos.playerPosition == Position.Left) 
-                transform.position = new Vector3(transform.position.x, transform.position.y, playerPos.LeftPoint.z); 
-            else if (playerPos.playerPosition == Position.Right) 
-                transform.position = new Vector3(transform.position.x, transform.position.y, playerPos.RightPoint.z); 
-        }
+            ChangeRotation(90, Vector3.right);
 
+            ChangePosition(transform.position.x, playerPos.MiddlePoint.z,
+                transform.position.x, playerPos.LeftPoint.z, transform.position.x, playerPos.RightPoint.z);
+        }
         else if (direction == Direction.Left)
         {
-            transform.rotation = Quaternion.Euler(0, -90, 0);
-            charController.Move(Vector3.left * speed * Time.deltaTime);
-            if (playerPos.playerPosition == Position.Middle)  
-                transform.position = new Vector3(transform.position.x, transform.position.y, playerPos.MiddlePoint.z); 
-            else if (playerPos.playerPosition == Position.Left)
-                transform.position = new Vector3(transform.position.x, transform.position.y, playerPos.LeftPoint.z); 
-            else if (playerPos.playerPosition == Position.Right)  
-                transform.position = new Vector3(transform.position.x, transform.position.y, playerPos.RightPoint.z); 
+            ChangeRotation(-90,Vector3.left);
+
+            ChangePosition(transform.position.x,playerPos.MiddlePoint.z,
+                transform.position.x,playerPos.LeftPoint.z,transform.position.x,playerPos.RightPoint.z);
         }
         else if (direction == Direction.Back)
         {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-            charController.Move(Vector3.back * speed * Time.deltaTime);
-            if (playerPos.playerPosition == Position.Middle) 
-                transform.position = new Vector3(playerPos.MiddlePoint.x, transform.position.y, transform.position.z); 
-            else if (playerPos.playerPosition == Position.Left) 
-                transform.position = new Vector3(playerPos.LeftPoint.x, transform.position.y, transform.position.z); 
-            else if (playerPos.playerPosition == Position.Right) 
-                transform.position = new Vector3(playerPos.RightPoint.x, transform.position.y, transform.position.z); 
+            ChangeRotation(180,Vector3.back);
+
+            ChangePosition(playerPos.MiddlePoint.x,transform.position.z,
+                playerPos.LeftPoint.x,transform.position.z,playerPos.RightPoint.x,transform.position.z);
         }
+    }
+
+    private void ChangeRotation(float rotation, Vector3 pos)
+    {
+        transform.rotation = Quaternion.Euler(0, rotation, 0);
+        charController.Move(pos * speed * Time.deltaTime);
+    }
+
+    private void ChangePosition(float middleX,float middleZ,float leftX,float leftZ, float rightX,float rightZ)
+    {
+        if (playerPos.playerPosition == Position.Middle)
+            transform.position = new Vector3(middleX, transform.position.y, middleZ);
+        else if (playerPos.playerPosition == Position.Left)
+            transform.position = new Vector3(leftX, transform.position.y, leftZ);
+        else if (playerPos.playerPosition == Position.Right)
+            transform.position = new Vector3(rightX, transform.position.y, rightZ);
     }
 
     public void Jump()
     {
         if (charController.isGrounded)
         {
-            GetComponent<PlayerSound>().PlayJumpSound();
+            AudioManager.instance.PlayJumpSound();
             GetComponent<PlayerAnimations>().PlayJumpAnimation();
             moveDirection.y = jumpSpeed;
         }
@@ -121,9 +119,9 @@ public class PlayerMovement : MonoBehaviour
         canSlide = false;
         charController.height = charController.height / 2f;
         charController.center = defaultCenter / 2f;
-        GetComponent<PlayerSound>().PlaySlideSound();
+        AudioManager.instance.PlaySlideSound();
         GetComponent<PlayerAnimations>().PlaySlideAnimation();
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(2f);
         charController.height = defaultHeight;
         charController.center = defaultCenter;
         canSlide = true;

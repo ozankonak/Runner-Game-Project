@@ -321,20 +321,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd45941fa7f843949bbd9fefb609301d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Planes:
-  - {fileID: 1569578735428170, guid: 3888f4e4e36c8d149a3bfda7db46e406, type: 3}
-  - {fileID: 1922191318048054, guid: 2e6025c0a8df8ae428bbb0cbac42bc9a, type: 3}
-  - {fileID: 1150613453996124, guid: 3c36c87847b2b3e4eb8d20a8e7d8650c, type: 3}
-  - {fileID: 1762326013885392, guid: 09b8d6fed95485946a4114a0c39b340e, type: 3}
-  - {fileID: 1685098027461468, guid: 19fca843a66da1043b3e0740c1f3e8d7, type: 3}
-  - {fileID: 1017693334647370, guid: cb52de66ef0ac874aa700505598d7815, type: 3}
-  - {fileID: 2227386665079440586, guid: 14c405e2761655043bcdafa7816f17bf, type: 3}
-  rotationLeft: {fileID: 1856193262054350, guid: a6aa1189c5ed96e4c926d312cbbbef19,
-    type: 3}
-  rotationRight: {fileID: 1283044747250056, guid: 96b92032b3fe554498720bef0eacb0fe,
-    type: 3}
   sizeOnScreenPlane: 7
-  PlaneSize: 10
+  NormalPlatforms:
+  - {fileID: 1569578735428170, guid: 3888f4e4e36c8d149a3bfda7db46e406, type: 3}
+  JumpPlatforms:
+  - {fileID: 1922191318048054, guid: 2e6025c0a8df8ae428bbb0cbac42bc9a, type: 3}
+  - {fileID: 7349054984356960763, guid: 27f3fe7cccce289468f587a3c183171c, type: 3}
+  - {fileID: 1777056408407501942, guid: 5b12e4f9dcc54ae4298234c88aec13b1, type: 3}
+  SlidePlatforms:
+  - {fileID: 1017693334647370, guid: cb52de66ef0ac874aa700505598d7815, type: 3}
+  CoinPlatforms:
+  - {fileID: 1569578735428170, guid: 3888f4e4e36c8d149a3bfda7db46e406, type: 3}
+  PowerPlatforms:
+  - {fileID: 2227386665079440586, guid: 14c405e2761655043bcdafa7816f17bf, type: 3}
+  LeftCorners:
+  - {fileID: 1856193262054350, guid: a6aa1189c5ed96e4c926d312cbbbef19, type: 3}
+  RightCorners:
+  - {fileID: 1283044747250056, guid: 96b92032b3fe554498720bef0eacb0fe, type: 3}
 --- !u!4 &631865116
 Transform:
   m_ObjectHideFlags: 0
@@ -380,6 +383,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinClip: {fileID: 8300000, guid: 50e72daaadc6d2645967efe47dd0dd9e, type: 3}
+  jumpClip: {fileID: 8300000, guid: 54e46e0c502120245aa009627d2dbd6b, type: 3}
+  slideClip: {fileID: 8300000, guid: 54e46e0c502120245aa009627d2dbd6b, type: 3}
 --- !u!82 &834572968
 AudioSource:
   m_ObjectHideFlags: 0
