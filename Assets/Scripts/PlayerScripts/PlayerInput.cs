@@ -20,8 +20,10 @@ public class PlayerInput : MonoBehaviour
             playerMov.Jump();
         if (Input.GetKeyDown(KeyCode.C))
             playerMov.Slide();
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && GameManager.instance.PlayMode)
             playerMov.RotateToLeft();
+        if (Input.GetMouseButtonDown(0) && !GameManager.instance.PlayMode)
+            GameManager.instance.StartGame();
         if (Input.GetMouseButtonDown(1))
             playerMov.RotateToRight();
         if (Input.GetKeyDown(KeyCode.A))

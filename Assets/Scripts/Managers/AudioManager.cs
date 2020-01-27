@@ -9,9 +9,21 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip coinClip = null;
     [SerializeField] private AudioClip jumpClip = null;
     [SerializeField] private AudioClip slideClip = null;
+    [SerializeField] private AudioClip startGameClip = null;
+    [SerializeField] private AudioClip playGameOverClip = null;
+
     private void Awake()
     {
-        instance = this;
+        #region SingletonPattern
+
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
+        #endregion
+
         Source = GetComponent<AudioSource>();
     }
 
@@ -30,4 +42,13 @@ public class AudioManager : MonoBehaviour
         Source.PlayOneShot(coinClip);
     }
 
+    public void PlayStartGameSound()
+    {
+        Source.PlayOneShot(startGameClip);
+    }
+
+    public void PlayGameOverSound()
+    {
+        Source.PlayOneShot(playGameOverClip);
+    }
 }

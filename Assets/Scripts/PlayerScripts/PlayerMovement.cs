@@ -38,6 +38,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.instance.PlayMode)
+            return;
+
         Move();
         Gravity();
     }

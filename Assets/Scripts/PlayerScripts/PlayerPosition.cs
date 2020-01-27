@@ -53,7 +53,6 @@ public class PlayerPosition : MonoBehaviour
     {
         StartCoroutine(StartDestroy(other));
     }
-
     IEnumerator StartDestroy(Collider other)
     {
         yield return new WaitForSecondsRealtime(2f);
@@ -63,6 +62,5 @@ public class PlayerPosition : MonoBehaviour
             TileManager.instance.PlaneNumber--;
         }
     }
-
 }
 
