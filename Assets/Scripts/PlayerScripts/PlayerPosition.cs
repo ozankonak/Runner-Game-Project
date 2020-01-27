@@ -1,8 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
-using Vector3 = UnityEngine.Vector3;
 
 public enum Position { Left, Middle, Right}
 
@@ -54,10 +51,15 @@ public class PlayerPosition : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        StartCoroutine(StartDestroy(other));
+    }
 
+    IEnumerator StartDestroy(Collider other)
+    {
+        yield return new WaitForSecondsRealtime(2f);
         if (other.gameObject.tag == "Destroy")
         {
-            Destroy(other.gameObject.transform.parent.gameObject, 2f);
+            other.transform.parent.gameObject.SetActive(false);
             TileManager.instance.PlaneNumber--;
         }
     }

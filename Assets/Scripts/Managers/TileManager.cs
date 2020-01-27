@@ -3,32 +3,10 @@ using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
-
     public static TileManager instance;
 
     [Header("Platform Settings")]
     [SerializeField] int sizeOnScreenPlane = 0;
-
-    [Header("Normal Platforms")]
-    [SerializeField] private GameObject[] NormalPlatforms;
-
-    [Header("Jump Platforms")] 
-    [SerializeField] private GameObject[] JumpPlatforms;
-
-    [Header("Slide Platforms")]
-    [SerializeField] private GameObject[] SlidePlatforms;
-
-    [Header("Coin Platforms")] 
-    [SerializeField] private GameObject[] CoinPlatforms;
-
-    [Header("Power Platforms")] 
-    [SerializeField] private GameObject[] PowerPlatforms;
-
-    [Header("Left Corners")] 
-    [SerializeField] private GameObject[] LeftCorners;
-
-    [Header("Right Corners")] 
-    [SerializeField] private GameObject[] RightCorners;
 
     private int PlaneSize = 10; //Platformun boyutu 
     private Vector3 lastPos;
@@ -109,7 +87,9 @@ public class TileManager : MonoBehaviour
 
             if (rand < 1)
             {
-                GameObject gl = Instantiate(LeftCorners[Random.Range(0,LeftCorners.Length)], lastPos, Quaternion.Euler(0, yRotation, 0));
+                GameObject gl = Instantiate(LeftCornerPooler.instance.GetPooledObject(), lastPos, Quaternion.Euler(0, yRotation, 0));
+                if (gl != null)
+                    gl.SetActive(true);
                 PlaneNumber++;
                 SpawnLeftCorner();
 
@@ -117,7 +97,9 @@ public class TileManager : MonoBehaviour
             else if (rand >= 1)
             {
 
-                GameObject gr = Instantiate(RightCorners[Random.Range(0, RightCorners.Length)], lastPos, Quaternion.Euler(0, yRotation, 0));
+                GameObject gr = Instantiate(RightCornerPooler.instance.GetPooledObject(), lastPos, Quaternion.Euler(0, yRotation, 0));
+                if (gr != null)
+                    gr.SetActive(true);
                 PlaneNumber++;
                 SpawnRightCorner();
             }
@@ -182,24 +164,22 @@ public class TileManager : MonoBehaviour
 
     private void CreateCombinations(GameObject go)
     {
-        // 0 ile 100 arası rastgele bir sayı alacağız
-        int randNum = Random.Range(0, 100);
+        int randNum = Random.Range(0, 100); // - Random number between 0 and 100
         
-        //%50 ihtimalle engelsiz platform
         if (randNum <= 50)
-            go = Instantiate(NormalPlatforms[Random.Range(0, NormalPlatforms.Length)]);
-        //%15 ihtimalle zıplatmalı platform 
-        else if (randNum <= 65 && randNum > 50)
-            go = Instantiate(JumpPlatforms[Random.Range(0, JumpPlatforms.Length)]);
-        //%15 ihtimalle eğilmeli platform
+            go = NormalPooler.instance.GetPooledObject(); // - %50 chance to normal platform
+            else if (randNum <= 65 && randNum > 50)
+            go = JumpPlatformPooler.instance.GetPooledObject(); // - %15 chance to jump platform
         else if (randNum > 65 && randNum <= 80)
-            go = Instantiate(SlidePlatforms[Random.Range(0, SlidePlatforms.Length)]);
-        //%10 ihtimalle coinli platform
+            go = SlidePlatformPooler.instance.GetPooledObject(); // - %15 chance to slide platform
         else if (randNum > 80 && randNum <= 90)
-            go = Instantiate(CoinPlatforms[Random.Range(0, CoinPlatforms.Length)]);
-        //%10 ihtimalle güç veren platform
+            go = CoinPlatformPooler.instance.GetPooledObject(); // - %10 chance to coin platform
         else
-            go = Instantiate(PowerPlatforms[Random.Range(0, PowerPlatforms.Length)]);
+            go = PowerPlatformPooler.instance.GetPooledObject(); // - %50 chance to power platform
+
+
+        if (go != null)
+            go.SetActive(true);
 
         CheckDirection(go);
     }
